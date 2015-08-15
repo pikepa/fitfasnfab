@@ -31,17 +31,17 @@ $week=$_SESSION['week'];
 <body >
     <!---- Include Header    ----->
     <?php
-    include '../includes/menubars.inc.php';
-    ?>
-    <!-- Main body
-    ================== -->
-<?php
-    $link=$con;
-    $query = "SELECT * FROM `xff_static_codes` where `code` = '$week'"; 
-    $getID = mysqli_fetch_assoc(mysqli_query($link,$query));
-    $dispweek=$getID['code_value'];
-?>
-    
+		include '../includes/menubars.inc.php';
+		include_once '../mysql/hidden_files/database.php';
+			
+		$sql = "SELECT * FROM `xff_std_weeks` where `week_code` =:week";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':week', $week, PDO::PARAM_INT);   
+        $stmt->execute();
+		$obj = $stmt->fetchObject();
+        $dispweek=$obj->week
+     ?>
+      <!---- Main Body    -----> 
     <div class="wrapper">
         <div class="section-header fixed-top">
         <div class="container">

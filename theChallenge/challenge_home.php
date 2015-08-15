@@ -37,11 +37,22 @@
     
      <!---- Include Header    ----->
 	<?php  
-    include '../includes/menubars.inc.php';
+   		include '../includes/menubars.inc.php';
+		include_once '../mysql/hidden_files/database.php';
     ?>
       
     <!----- Include Pagee Restrictions -------->
-    
+    	<?php
+			
+		$sql = "SELECT * FROM `xff_registrations` where `user_id` = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $_SESSION['uid'], PDO::PARAM_INT);   
+        $stmt->execute();
+		$obj = $stmt->fetchObject();
+        $challenge=$obj->challenge_code;
+			$_SESSION["challenge"] = $challenge;
+			  
+			?>
     
     <!-- Main body
     ================== -->
@@ -74,6 +85,7 @@
            <p> <button type="button" class="btn btn-primary btn-xs btn-block disabled">Week 10      </button></p>
            <p> <button type="button" class="btn btn-primary btn-xs btn-block disabled">Week 11      </button></p>
            <p> <button type="button" class="btn btn-primary btn-xs btn-block disabled">Week 12      </button></p>
+			
 
 
 
@@ -221,10 +233,13 @@
 <?php 
                         if (is_admin()) { 
                         echo '<p><a class="btn btn-xs btn-block btn-danger" href="../theChallenge/challenge_admin.php" role="button">Admin</a></p>' ; }?>
-                       <p><a class="btn btn-xs btn-block btn-pink" href="../theChallenge/challenge_updt_wandm.php" role="button"> Enter Weekly Results</a></p>
-                       <p><a class="btn btn-xs btn-block btn-pink" href="../theChallenge/challenge_fitness_test.php" role="button"> Fitness Test Results</a></p>
-                       <p><a class="btn btn-xs btn-block btn-pink" href="../theChallenge/challenge_goals.php" role="button"> My Goals</a></p>
-                    </div>
+                       	<p><a class="btn btn-xs btn-block btn-pink" href="../theChallenge/challenge_updt_wandm.php" role="button"> Enter Weekly Results</a></p>
+                       	<p><a class="btn btn-xs btn-block btn-pink" href="../theChallenge/challenge_fitness_test.php" role="button"> Fitness Test Results</a></p>
+						<p><a class="btn btn-xs btn-block btn-pink" href="../theChallenge/challenge_goals.php" role="button"> My Goals</a></p>
+						<?php        if (is_admin()) { 
+                        echo '<p><a class="btn btn-xs btn-block btn-primary" href="../xmisc/session_variables.php" role="button">Variables</a></p>' ; }?>           
+                    
+			</div>
              </div>
     </div><!-- /.container -->
   </div> <!-- Wrapper -->

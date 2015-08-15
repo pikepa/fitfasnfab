@@ -31,16 +31,21 @@ $week=$_SESSION['week'];
 <body >
     <!---- Include Header    ----->
     <?php
-    include '../includes/menubars.inc.php';
-    ?>
-    <!-- Main body
-    ================== -->
-<?php
-    $link=$con;
-    $query = "SELECT * FROM `xff_static_codes` where `code` = '$week'"; 
-    $getID = mysqli_fetch_assoc(mysqli_query($link,$query));
-    $dispweek=$getID['code_value'];
-?>
+		include '../includes/menubars.inc.php';
+		include_once '../mysql/hidden_files/database.php';
+			
+		$sql = "SELECT * FROM `xff_std_weeks` where `week_code` = :week";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':week', $week, PDO::PARAM_INT);   
+        $stmt->execute();
+		$obj = $stmt->fetchObject();
+        $dispweek=$obj->week;
+     ?>       
+    <!----- Main Page --->
+
+
+
+
     
     <div class="wrapper">
         <div class="section-header fixed-top">
@@ -52,7 +57,7 @@ $week=$_SESSION['week'];
             </div>
             <div class="col-md-10">
               <ul class="nav nav-tabs">
-                  <li role="presentation" ><a href="challenge_weeks.php"><span><i class="fa fa-calendar"></i><?php echo " $dispweek" ?> </a></li>
+                  <li role="presentation" ><a href="challenge_weeks.php"><span><i class="fa fa-calendar"></i><?php echo "$dispweek"; ?></a></li>
                   <li role="presentation""><a href="challenge_weeks_hwork.php"><span><i class="fa fa-pencil"></i> Homework</a></li>
                   <li role="presentation" class="active"><a href="challenge_weeks_exercise.php"><span><i class="fa fa-heartbeat"></i> Exercise Plan</a></li>
                   <li role="presentation"><a href="challenge_weeks_nutrition.php"><span><i class="fa fa-cutlery"></i> Nutrition Plan</a></li>

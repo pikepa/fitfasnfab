@@ -52,9 +52,28 @@
   <body>
 
     <!---- Include Header    ----->
-	<?php include '../includes/menubars.inc.php';?>  
+	<?php 
+		//include '../includes/menubars.inc.php'; 
+		include_once '../mysql/hidden_files/database.php';
 
-    
+		// Check to see whether the User has already registered for a Challenge
+
+
+		$sql = "SELECT * 
+				FROM  `xff_registrations` 
+				INNER JOIN  `xff_challenges` ON `reg_uid` =`challenge_uid` 
+				WHERE `user_id` = :user_id and `active_chal`='YES'";
+			
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $_SESSION['uid'], PDO::PARAM_INT); 
+        $stmt->execute();
+		$obj = $stmt->fetchObject();
+		$exist = $stmt->rowCount();
+
+		if ($exist > 0 ) { ?>
+			<script> location.replace("../theChallenge/challenge_home.php"); </script>?
+		<?php }  ?> 
+	  
     <!-- Main body
     ================== -->
     <div class="wrapper">

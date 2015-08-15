@@ -29,10 +29,14 @@ session_start();
     <!---- Include Header    ----->
     <?php
     include '../includes/menubars.inc.php';
-    ?>
-    <!-- Main body
-    ================== -->
-<?php
+
+	        // include database connection
+        $path = $_SERVER['DOCUMENT_ROOT'];
+        $path .= "/mysql/hidden_files/database.php";
+        include_once($path); 
+
+    //    <!--- Main Body  ---->
+
         if (!isset($_GET['week_code'])) {
             $week=$_SESSION['week'] ;
         }else{ 
@@ -40,16 +44,15 @@ session_start();
             $week=$_GET['week_code'];
               }
             
-            $link=$con;
-    $query = "SELECT * FROM `xff_std_weeks` where `week_code` = '$week'"; 
-    $getID = mysqli_fetch_assoc(mysqli_query($link,$query));
-    $dispweek=$getID['week'];     
+		$sql = "SELECT * FROM `xff_std_weeks` where `week_code` = :week";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':week', $week, PDO::PARAM_INT);   
+        $stmt->execute();
+		$obj = $stmt->fetchObject();
+        $dispweek=$obj->week;  
          
       
-        // include database connection
-        $path = $_SERVER['DOCUMENT_ROOT'];
-        $path .= "/mysql/hidden_files/database.php";
-        include_once($path); 
+
  
         $action = isset($_GET['action']) ? $_GET['action'] : "";
  

@@ -36,8 +36,9 @@
     <!---- Include Header    ----->
 <?php  
     include '../includes/menubars.inc.php';
- ?>
-      <!-- Main body
+?>  
+	  
+	  <!-- Main body
     ================== -->
     <div class="wrapper">
         <div class="container">
