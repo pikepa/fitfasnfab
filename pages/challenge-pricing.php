@@ -158,7 +158,7 @@
            </div>
             <div class='col-md-6 col-md-offset-3 text-center pink'>
                  <?php if(!is_logged_in()) {
-                 echo "<a href='/login/login.php'/><h4>You need to Register or be Logged in to select an option and pay</h4></a>";
+                 echo "<a href='/login/register.php'/><h4>You need to Register or be Logged in to select an option and pay</h4></a>";
               } ?>
             </div>
         </div>

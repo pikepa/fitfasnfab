@@ -57,7 +57,7 @@ $week=$_SESSION['week'];
             </div>
             <div class="col-md-10">
               <ul class="nav nav-tabs">
-                  <li role="presentation" ><a href="challenge_weeks.php"><span><i class="fa fa-calendar"></i><?php echo "$dispweek"; ?></a></li>
+                  <li role="presentation" ><a href="challenge_weeks.php"><span><i class="fa fa-calendar"></i> <?php echo "$dispweek"; ?></a></li>
                   <li role="presentation""><a href="challenge_weeks_hwork.php"><span><i class="fa fa-pencil"></i> Homework</a></li>
                   <li role="presentation" class="active"><a href="challenge_weeks_exercise.php"><span><i class="fa fa-heartbeat"></i> Exercise Plan</a></li>
                   <li role="presentation"><a href="challenge_weeks_nutrition.php"><span><i class="fa fa-cutlery"></i> Nutrition Plan</a></li>

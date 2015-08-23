@@ -84,7 +84,7 @@ session_start();
                     <li role="presentation" class="active"><a href="#"><span><i class="fa fa-calendar"></i><?php echo " $dispweek" ?> </a></li>
                     <li role="presentation"><a href="challenge_weeks_hwork.php"><span><i class="fa fa-pencil"></i> Homework</a></li>
                     <li role="presentation"><a href="challenge_weeks_exercise.php"><span><i class="fa fa-heartbeat"></i> Exercise Plan</a></li>
-                    <li role="presentation"><a href="challenge_weeks_nutrition.php"><span><i class="fa fa-cutlery"></i> Nutrition Plan</a></li>
+                    <li role="presentation"><a href="challenge_weeks_nutrition.php?menu_type=1"><span><i class="fa fa-cutlery"></i> Nutrition Plan</a></li>
                     <li role="presentation"><a href="challenge_home.php"><span><i class="fa fa-home"></i> Home</a></li>
                 </ul>
             </div>
