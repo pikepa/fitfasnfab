@@ -98,7 +98,8 @@ if(isset($_POST['change_menu'])) {
 
 
 		<?php
-					$sql = "SELECT `day_code`,`meal_type`,`name`,`description`,`uid`  FROM `xff_meals` where `week_code` = :week_code AND `menu_type` = :menu_type";
+					$sql = "SELECT `day_code`,`meal_type`,`name`,`description`,`uid`,`img_link`  FROM `xff_meals` where `week_code` = :week_code 
+					AND `menu_type` = :menu_type order by `day_code` ,  `meal_sort` ASC";
 					$stmt = $conn->prepare($sql);
 					$stmt->bindParam(':week_code', $week, PDO::PARAM_STR); 
 					$stmt->bindParam(':menu_type', $menu, PDO::PARAM_STR);   
@@ -112,15 +113,12 @@ if(isset($_POST['change_menu'])) {
 					$iterations=$count/4 ;
 					//print_r($result);
 					if ($iterations >=1 ) {
-					?>
 
-
-			<?php
-			$days=array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
-			$x=0 ;
-			$z=1 ;
-			while ($z <= $iterations) {
-				$value=$days[$z-1];
+					$days=array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
+					$x=0 ;
+					$z=1 ;
+					while ($z <= $iterations) {
+							$value=$days[$z-1]; //this takes the array and returns the day of the week
 		?>
 		 <div class="row">
             <div class="col-md-1"> 
@@ -131,47 +129,43 @@ if(isset($_POST['change_menu'])) {
 
 		<div class="row">
 		  	<div class="col-md-3 col-sm-6">
+				<div class="thumbnail">
 					<h5 class="text-center"> Breakfast </h5>
-					<div class="thumbnail">
-					  <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT4pB1xv_ajJKy26nxDsGIRjRYGC1IcbrqOtyK2P24xm-CzIg9L" class="img-responsive" alt="...">
+				  		<img style="max-height:150px" class="img-responsive" src="<?php echo $result[$x][5]; ?>" wifth="100%" alt="...">
 					  <div class="visit"><a href="../theChallenge/challenge_meal_detail.php?uid=<?php echo $result[$x][4]; ?>" ><i  class="fa fa-question-circle"></i> More details...</a></div>
-					  <div class="caption">
-						<h3><?php echo $result[$x][2]; ?></h3>
-						<p><?php echo $result[$x][3]; ?>.</p>
+						<div class="caption text-center">
+						   <h5 ><?php echo $result[$x][2]; ?></h5>
 					  </div>
 					</div>
 			</div>
 				  <div class="col-md-3 col-sm-6">
+					 <div class="thumbnail">
 					<h5 class="text-center"> Lunch </h5>
-					<div class="thumbnail">
-					  <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTD7JtuYeoyvUMB3x1BCGh_vOTQVgBPFNUoGH3IiPlt88MleNPofQ" class="img-responsive" alt="...">
+					  <img style="max-height:150px" class="img-responsive" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTD7JtuYeoyvUMB3x1BCGh_vOTQVgBPFNUoGH3IiPlt88MleNPofQ"  alt="...">
 					  <div class="visit"><a href="../theChallenge/challenge_meal_detail.php?uid=<?php echo $result[$x+1][4]; ?>"><i class="fa fa-question-circle"></i> More details...</a></div>
-					  <div class="caption">
-						<h3><?php echo $result[$x+1][2]; ?></h3>
-						<p><?php echo $result[$x +1][3]; ?>.</p>
+						<div class="caption text-center">
+						<h5><?php echo $result[$x+1][2]; ?></h5>
 					  </div>
 					</div>
 			</div>
 				  <div class="clearfix visible-sm"></div>
 				  <div class="col-md-3 col-sm-6">
- 					<h5 class="text-center">Dinner</h5>
 					<div class="thumbnail">
-					  <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSeQLUtD_26EF15l0Kmot3yOhSxEPZYoaRZvNhlXyQrB1HKgpZlrw" class="img-responsive" alt="...">
+ 					<h5 class="text-center">Dinner</h5>
+   					  <img style="max-height:150px" class="img-responsive" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSeQLUtD_26EF15l0Kmot3yOhSxEPZYoaRZvNhlXyQrB1HKgpZlrw"  alt="...">
 					  <div class="visit"><a href="../theChallenge/challenge_meal_detail.php?uid=<?php echo $result[$x+2][4]; ?>"><i class="fa fa-question-circle"></i> More details...</a></div>
-					  <div class="caption">
-						<h3><?php echo $result[$x + 2][2]; ?></h3>
-						<p><?php echo $result[$x + 2][3]; ?>.</p>
+						<div class="caption text-center">
+						<h5><?php echo $result[$x + 2][2]; ?></h5>
 					  </div>
 					</div>
 			</div>
 				  <div class="col-md-3 col-sm-6">
+					<div class="thumbnail" >
 					<h5 class="text-center">Snacks</h5>
-					<div class="thumbnail">
-					  <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSq-OoHCwbq_IoePyeggx-8xA03IpJ3PcfD5mIFv3CMBa5ud93U" class="img-responsive" alt="...">
+					  <img style="max-height:150px" class="img-responsive" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSq-OoHCwbq_IoePyeggx-8xA03IpJ3PcfD5mIFv3CMBa5ud93U"  alt="...">
 					  <div class="visit"><a href="../theChallenge/challenge_meal_detail.php?uid=<?php echo $result[$x+3][4]; ?>"><i class="fa fa-question-circle"></i> More details...</a></div>
-					  <div class="caption">
-						<h3><?php echo $result[$x+3][2]; ?></h3>
-						<p><?php echo $result[$x+3][3]; ?>.</p>
+						<div class="caption text-center">
+						<h5><?php echo $result[$x+3][2]; ?></h5>
 					  </div>
 					</div>
 	  			 </div>
@@ -186,46 +180,7 @@ if(isset($_POST['change_menu'])) {
 		
 	 ?>
 		
-					<table width="900px">
-					<tr>
-					<th width="10%"> Day</th>
-					<th width="20%">Breakfast</th>
-					<th width="20%">Lunch</th>
-					<th width="20%">Dinner</th>
-					<th width="20%">Snacks</th>
-
-				 	</tr>
-					<tr>
-						<td>Monday</td>
-					<td><?php echo $result[0][2]; ?></td>
-					<td><?php echo $result[1][2]; ?></td>
-					<td><?php echo $result[2][2]; ?></td>
-					<td><?php echo $result[3][2]; ?></td>
-					</tr>
-					<tr>
-						<td></td>
-					<td><?php echo $result[0][3]; ?></td>
-					<td><?php echo $result[1][3]; ?></td>
-					<td><?php echo $result[2][3]; ?></td>
-					<td><?php echo $result[3][3]; ?></td>
-					</tr>
-					
-										<tr>
-						<td>Tuesday</td>
-					<td><?php echo $result[4][2]; ?></td>
-					<td><?php echo $result[5][2]; ?></td>
-					<td><?php echo $result[6][2]; ?></td>
-					<td><?php echo $result[7][2]; ?></td>
-					</tr>
-					<tr>
-						<td></td>
-					<td><?php echo $result[4][3]; ?></td>
-					<td><?php echo $result[5][3]; ?></td>
-					<td><?php echo $result[6][3]; ?></td>
-					<td><?php echo $result[7][3]; ?></td>
-					</tr>
-
-				 </table>	
+	
 			<?php			}else { ?>
 		<div class="row">
             <div class="col-md-12">

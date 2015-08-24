@@ -28,9 +28,13 @@ include_once($path);
    if(isset($_POST['change_menu'])) {
 	$menu=$_POST['menu_type'];
    	$week=$_POST['week_code'];
+	$day="Day".$_POST['day'];
+	$dayno=$_POST['day'];
    	}else{
 	$menu="Tone and Shape";
 	$week="PR01";
+	$day="DAY01";
+	$dayno="01";
 	} 
    ?>
   
@@ -63,9 +67,9 @@ include_once($path);
             <div class="container">
                 <div class="row">
                     <div class="col-md-2">  
-                        <a href="../mysql/add_homework.php" class="btn btn-large btn-info"><i class="glyphicon glyphicon-plus"></i> &nbsp; Add a Plan</a>
+                        <a href="../mysql/add_meal.php" class="btn btn-large btn-info"><i class="glyphicon glyphicon-plus"></i> &nbsp; Add a Plan</a>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
 
 					 <form name="selectmenu" method="post" action="../theChallenge/challenge_admin.nutrition.php" class="form-inline">
 							  <div class="form-group">
@@ -103,10 +107,55 @@ include_once($path);
 								?>
 								</select>
 							  </div>
+						 		<div class="form-group">
+								<label for="day">Choose Day :</label>
+								<select class="form-control" name="day">
+									<option ><?php echo $dayno ?></option>;
+									<option >01</option>;
+									<option >02</option>;
+									<option >03</option>;
+									<option >04</option>;
+									<option >05</option>;
+									<option >06</option>;
+									<option >07</option>;
+								</select>
+							  </div>
 							  <button name="change_menu" type="submit" class="btn btn-success">Select Menu</button>
 							</form>	
+								<?php
+								$sql = "SELECT * FROM `xff_meals` where `week_code` = :week  and `menu_type` = :menu 
+									and `day_code` = :day order by `meal_sort` ASC" ;
+       							$ftch = $conn->prepare($sql);
+        						$ftch->bindParam(':week', $week, PDO::PARAM_STR);  
+								$ftch->bindParam(':menu', $menu, PDO::PARAM_STR); 
+								$ftch->bindParam(':day', $day, PDO::PARAM_STR);   
+        						$ftch->execute();
+								?>
+								                
+							 <table class='table table-bordered table-responsive'>
+								<tr>
+								<th style="width:10%">Day</th>
+								<th style="width:40%">Meal</th>
+								<th style="width:40%">Name</th>
+								<th style="width:10%" colspan="2" class="text-center">Actions</th>
+								</tr>
+							<?php
+							while ($detrow = $ftch->fetchObject()) { ?>
+								<tr>
+									<td><?php echo $detrow->day_code; ?></td>
+									<td><?php echo $detrow->meal_type; ?></td>
+									<td><?php echo $detrow->name; ?></td>
 
-                
+									<td align="center">
+										<a href="../mysql/edit_homework.php?edit_id=<?php echo $detrow->uid; ?>"><i class="fa fa-pencil-square-o"></i></a>
+									</td>
+									<td class="text-center">
+										<a href="../mysql/delete_homework.php?delete_id=<?php echo $detrow->uid; ?>"><i class="fa fa-trash-o"></i></a>
+									</td>
+								</tr>
+							<?php
+							}
+							?>
 
 
                     </div>

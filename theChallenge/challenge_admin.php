@@ -40,13 +40,23 @@ include_once($path);
               <h1 class="animated slideInLeft"><span>Editing Messages</span></h1>
             </div>
             <div class="col-md-8">
-              <ul class="nav nav-tabs">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+</div>
+				 <div class="collapse navbar-collapse" id="navbar-collapse-1">
+	              <ul class="nav nav-navbar nav-tabs">
                   <li role="presentation" class="active"><a href="challenge_admin.php"><span><i class="fa fa-inbox"></i> Messages</a></li>
                     <li role="presentation" ><a href="challenge_admin.hwork.php"><span><i class="fa fa-pencil"></i> Homework</a></li>
                     <li role="presentation" ><a href="challenge_admin.exercise.php"><span><i class="fa fa-heartbeat"></i> Exercise Plan</a></li>
                     <li role="presentation" ><a href="challenge_admin.nutrition.php"><span><i class="fa fa-cutlery"></i> Nutrition Plan</a></li>
                     <li role="presentation"><a href="challenge_home.php"><span><i class="fa fa-home"></i> Home</a></li>
                 </ul>
+				</div>
             </div>
             </div>
              </div>

@@ -38,7 +38,7 @@ session_start();
 
 include_once '../mysql/hidden_files/database.php';
 
-					$sql = "SELECT `day_code`,`meal_type`,`name`,`description`,`recipe`  FROM `xff_meals` where `uid` = :uid";
+					$sql = "SELECT `day_code`,`meal_type`,`name`,`description`,`recipe`,`img_link`  FROM `xff_meals` where `uid` = :uid";
 					$stmt = $conn->prepare($sql);
 					$stmt->bindParam(':uid', $uid, PDO::PARAM_INT); 
 					$stmt->execute();
@@ -68,32 +68,30 @@ include_once '../mysql/hidden_files/database.php';
         </div>
     </div> 
     <div class="container">
-        <div class="row">
             <div class="col-md-2">  
 					<div class="thumbnail">
-					  <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT4pB1xv_ajJKy26nxDsGIRjRYGC1IcbrqOtyK2P24xm-CzIg9L" class="img-responsive" alt="...">
+					  <img src="<?php echo $result ["img_link"] ; ?> " class="img-responsive" alt="...">
 					</div>           
 			</div>
-			<div class="col-md-2 col-sm-2">  
- 			<h4 style="margin:0px">Description :</h4>           
-			</div>
-            <div class="col-md-6 text-justify">
-			<?php echo $result ["description"];?>
-            </div>
-        </div>
-		<div class="row">
-            <div class="col-md-2">  
-         
-			</div>
-			<div class="col-md-2 col-sm-2">  
- 			<h4 style="margin:0px">Recipe :</h4>           
-			</div>
-            <div class="col-md-6 text-justify">
-			<?php echo $result ["recipe"];?>
-            </div>
-        </div>
-		<div style="margin-top:20px" class="row">
-			<?php
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-3 col-sm-2">  
+					<h4 style="margin:0px">Description :</h4>           
+					</div>
+					<div class="col-md-6 text-justify">
+					<?php echo $result ["description"];?>
+					</div>
+				</div>
+				<div style="margin-top:20px" class="row">
+					<div class="col-md-3 col-sm-2">  
+					<h4 style="margin:0px">Recipe :</h4>           
+					</div>
+					<div class="col-md-6 text-justify">
+					<?php echo $result ["recipe"];?>
+					</div>
+				</div>
+				<div style="margin-top:20px" class="row">
+					<?php
 					$sql = "SELECT `ingredient`,`qty`,`units`  FROM `xff_meal_ingredients` where `meal_uid` = :meal_uid";
 					$stmt = $conn->prepare($sql);
 					$stmt->bindParam(':meal_uid', $uid, PDO::PARAM_INT); 
@@ -101,9 +99,7 @@ include_once '../mysql/hidden_files/database.php';
 					
 					?>
 
-            <div class="col-md-2">  
-         	</div>
-			<div class="col-md-2 col-sm-2">  
+			<div class="col-md-3 col-sm-2">  
  			<h4 style="margin:0px">Ingredients :</h4>           
 			</div>
             <div class="col-md-6 text-justify">
@@ -127,6 +123,8 @@ include_once '../mysql/hidden_files/database.php';
 	  			echo "<a href='$url'>back</a>"; 
 				?>
             </div>
+			</div>
+
         </div>
 		
     </div>
